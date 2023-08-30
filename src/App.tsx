@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import TodoList from './components/TodoList'
+import NewTodo from './components/NewTodo'
+import { Todo } from './model'
 
-function App() {
+
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const [editText, setEditText] = useState('')
+
+  const todoAddHandler = (text: string) => {
+    setTodos((prevTodos) => [
+      ...prevTodos,
+      { id: Math.random().toString(), text: text, editing: false },
+    ])
+  }
+
+  const todoDeleteHandler = (todoId: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== todoId)
+    })
+  }
+
+  const todoEditHandler = (todoId: string) => {
+    const todoToEdit = todos.find((todo) => todo.id === todoId)
+    if (todoToEdit) {
+      setEditText(todoToEdit.text)
+      setTodos((prevTodos) => {
+        return prevTodos.map((todo) =>
+          todo.id === todoId
+            ? { ...todo, editing: true }
+            : { ...todo, editing: false }
+        )
+      })
+    }
+  }
+
+  const todoSaveHandler = (todoId: string, newText: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) =>
+        todo.id === todoId ? { ...todo, text: newText, editing: false } : todo
+      )
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NewTodo onNewTodo={todoAddHandler} />
+      <TodoList
+        items={todos}
+        onDeleteTodo={todoDeleteHandler}
+        onEditTodo={todoEditHandler}
+        onSaveTodo={todoSaveHandler}
+        editText={editText} // Pass the editText state as a prop
+        onEditTextChange={setEditText} // Pass the state updater function
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+
+export default App

@@ -1,0 +1,64 @@
+form {
+  width: 90%;
+  max-width: 40rem;
+  margin: 4rem auto;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}
+
+label, input {
+  display: block;
+  width: 100%;
+}
+
+label {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+input {
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+input:focus {
+  outline: none;
+  border-color: #dd8604;
+}
+
+button {
+  background: #dd8604;
+  border: 1px solid #dd8604;
+  border-radius: 6px;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+}
+
+.delete_btn{
+  background-color: rgb(192, 0, 0);
+  border: 1px solid rgb(192, 0, 0);
+  box-shadow: inset 0 0 0 0 rgb(192, 0, 0);
+}
+
+.delete_btn:hover{
+  background-color: rgb(255, 0, 0);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover,
+button:active {
+  background: #13770a;
+  border-color: #13770a;
+}
+
